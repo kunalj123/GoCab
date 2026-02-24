@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "788462098118",
+    "project_id": "gocab-b4bf8",
+    "storage_bucket": "gocab-b4bf8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788462098118:android:1ab27c5b1e9cccbefd29c7",
+        "android_client_info": {
+          "package_name": "com.example.gocab"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACh2ZdLiakT2nIPF8PXZDdc9n7A3R-Wk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
