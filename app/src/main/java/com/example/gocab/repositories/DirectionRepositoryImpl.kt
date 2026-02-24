@@ -82,11 +82,11 @@ class DirectionRepositoryImpl @Inject constructor(
 
     }
 
-    suspend override fun getRouteForMultipleMarkers(
+    override suspend fun getRouteForMultipleMarkers(
         origin: LatLng,
         waypoints: List<LatLng>,
         destination: LatLng
-    ): List<LatLng>? {
+    ): RouteResult? {
 
 
         val originStr = "${origin.latitude}, ${origin.longitude}"
@@ -117,13 +117,18 @@ class DirectionRepositoryImpl @Inject constructor(
         )
 
 
-        val points = response.routes[0].overview_polyline.points
+        if (response.routes.isEmpty()) return null
+        val route = response.routes.firstOrNull() ?: return null
+        val points = route.overview_polyline.points
+        val distanceMeters = route.legs.sumOf { it.distance.value }
+        val durationSeconds = route.legs.sumOf { it.duration.value }
 
-        return PolyUtil.decode(points).map { latLng ->
-            LatLng(
-                latLng.latitude,latLng.longitude
-            )
-        }
+        return RouteResult(
+            points = PolyUtil.decode(points).map { latLng -> LatLng(latLng.latitude, latLng.longitude) },
+            distanceMeters = distanceMeters,
+            durationSeconds = durationSeconds
+        )
+
 
 
     }

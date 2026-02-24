@@ -16,28 +16,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.gocab.module.RideState
 import com.example.gocab.viewmodel.MapViewModel
 
 @Composable
 fun RideSimulationScreen(
     viewModel: MapViewModel,
-    onRideCompleted: () -> Unit,
-    rideAmount: Double?
+    onRideCompleted: () -> Unit
 ) {
 
     val rideState by viewModel.rideState.collectAsState()
 
     LaunchedEffect(rideState) {
-        if (rideState == RideState.IDLE) {
-            viewModel.startRideSimulation()
-        }
+        if (rideState == RideState.IDLE) viewModel.startRideSimulation()
     }
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
+
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
         when (rideState) {
 
@@ -61,17 +55,13 @@ fun RideSimulationScreen(
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text("Ride Completed 🎉")
                     Spacer(modifier = Modifier.height(16.dp))
-                    Button(
-                        onClick = {
-                            onRideCompleted()
-                        }
-                    ) {
+                    Button(onClick = onRideCompleted) {
                         Text("Proceed to Payment")
                     }
                 }
             }
 
-            else -> {}
+            else -> Unit
         }
     }
 }

@@ -7,35 +7,13 @@ import com.google.android.gms.maps.model.LatLng
 interface DirectionRepository {
 
     suspend fun getRoute(
-        origin : LatLng,
-        destination : LatLng
-    ) : RouteResult?
+        origin: LatLng,
+        destination: LatLng
+    ): RouteResult?
 
     suspend fun getRouteForMultipleMarkers(
-        origin : LatLng,
-        waypoints : List<LatLng>,
-        destination : LatLng,
-    ) : List<LatLng>?
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        origin: LatLng,
+        waypoints: List<LatLng>,
+        destination: LatLng,
+    ): RouteResult?
 }
