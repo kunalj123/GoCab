@@ -12,7 +12,20 @@
           "package_name": "com.example.gocab"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "788462098118-02peiaug5fggblt4evob70lh89r1qgjv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gocab",
+            "certificate_hash": "008fd19941f3cd18d59ad6afde590a7a68d91223"
+          }
+        },
+        {
+          "client_id": "788462098118-e8c3m0aqcqb3mriuo9m48pq3cdkfobit.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyACh2ZdLiakT2nIPF8PXZDdc9n7A3R-Wk8"
@@ -20,7 +33,49 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788462098118-e8c3m0aqcqb3mriuo9m48pq3cdkfobit.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788462098118:android:8f490c2d7c1b6732fd29c7",
+        "android_client_info": {
+          "package_name": "com.example.gocab.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788462098118-fdv2j0gd6jlmtlipvhll99hf67m9cmvu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gocab.app",
+            "certificate_hash": "008fd19941f3cd18d59ad6afde590a7a68d91223"
+          }
+        },
+        {
+          "client_id": "788462098118-e8c3m0aqcqb3mriuo9m48pq3cdkfobit.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACh2ZdLiakT2nIPF8PXZDdc9n7A3R-Wk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788462098118-e8c3m0aqcqb3mriuo9m48pq3cdkfobit.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

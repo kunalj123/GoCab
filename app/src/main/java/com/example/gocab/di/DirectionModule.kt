@@ -1,6 +1,6 @@
 package com.example.gocab.di
 
-import com.example.gocab.module.AppApiKey
+import com.example.gocab.BuildConfig
 import com.example.gocab.repositories.DirectionRepository
 import com.example.gocab.repositories.DirectionRepositoryImpl
 import com.example.gocab.retrofit.DirectionServices
@@ -30,7 +30,8 @@ object DirectionModule {
     @Provides
     @Named("mapApiKey")
     fun provideApikey() : String{
-        return AppApiKey.KEY_ID
+        return BuildConfig.MAPS_API_KEY
+    }
     }
 
     @Provides

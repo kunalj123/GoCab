@@ -5,6 +5,7 @@ import com.example.gocab.repositories.LocationRepository
 import com.example.gocab.repositories.LocationRepositoryImpl
 import com.example.gocab.repositories.MarkerRepository
 import com.example.gocab.repositories.MarkerRepositoryImpl
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
@@ -23,6 +24,10 @@ object FirebaseModule {
     fun provideFirebaseFirestore() : FirebaseFirestore {
         return FirebaseFirestore.getInstance()
     }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 
     @Provides
     fun provideMarkerRepository(

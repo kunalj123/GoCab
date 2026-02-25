@@ -14,6 +14,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -53,7 +54,8 @@ private enum class SearchTarget { PICKUP, DESTINATION, WAYPOINT_1, WAYPOINT_2, W
 @Composable
 fun GoCabMap(
     navController: NavController,
-    viewModel: MapViewModel
+    viewModel: MapViewModel,
+    onLogout: () -> Unit
 ) {
     val cameraPositionState = rememberCameraPositionState()
     val context = LocalContext.current
@@ -64,6 +66,7 @@ fun GoCabMap(
     val markers by viewModel.markersInFirebase.collectAsStateWithLifecycle()
 
     val selectedCar by viewModel.selectedCar.collectAsState()
+    val hasLocationPermission by viewModel.hasLocationPermission.collectAsState()
     val price by viewModel.price.collectAsState()
     val distanceKm by viewModel.distanceKm.collectAsState()
     val durationMin by viewModel.durationMin.collectAsState()
@@ -209,6 +212,14 @@ fun GoCabMap(
                 .align(Alignment.TopCenter)
                 .padding(horizontal = 16.dp, vertical = 12.dp)
         )
+
+        if (!hasLocationPermission) {
+            Card(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(16.dp)
+            ) { Text("Location permission is required for pickup detection", modifier = Modifier.padding(12.dp)) }
+        }
 
         if (price != null) {
             Card(

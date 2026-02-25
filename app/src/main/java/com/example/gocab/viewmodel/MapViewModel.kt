@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gocab.domainlayer.RouteResult
 import com.example.gocab.module.CarType
+import com.example.gocab.module.DriverProfile
 import com.example.gocab.module.RideState
 import com.example.gocab.repositories.DirectionRepository
 import com.example.gocab.repositories.LocationRepository
@@ -39,6 +40,18 @@ class MapViewModel @Inject constructor(
         private const val KEY_SELECTED_CAR = "selected_car"
     }
 
+    val carTypes = listOf(
+        CarType("Mini", 12.0, 60.0),
+        CarType("Sedan", 18.0, 100.0),
+        CarType("SUV", 25.0, 150.0)
+    )
+
+    private val fakeDrivers = listOf(
+        DriverProfile("Aarav", "https://i.pravatar.cc/150?img=12", 4.8, "KA01AB1234", "Mini"),
+        DriverProfile("Riya", "https://i.pravatar.cc/150?img=21", 4.9, "MH04DX4781", "Sedan"),
+        DriverProfile("Kabir", "https://i.pravatar.cc/150?img=45", 4.7, "DL09JJ6651", "SUV")
+    )
+
     private val _price = MutableStateFlow(savedStateHandle.get<Double?>(KEY_RIDE_PRICE))
     val price: StateFlow<Double?> = _price.asStateFlow()
 
@@ -48,16 +61,10 @@ class MapViewModel @Inject constructor(
     private val _durationMin = MutableStateFlow(savedStateHandle.get<Int?>(KEY_DURATION_MIN))
     val durationMin: StateFlow<Int?> = _durationMin.asStateFlow()
 
-    val carTypes = listOf(
-        CarType("Mini", 12.0, 60.0),
-        CarType("Sedan", 18.0, 100.0),
-        CarType("SUV", 25.0, 150.0)
-    )
 
     private val initialCarName = savedStateHandle.get<String?>(KEY_SELECTED_CAR)
     private val _selectedCar = MutableStateFlow(carTypes.firstOrNull { it.name == initialCarName })
     val selectedCar: StateFlow<CarType?> = _selectedCar.asStateFlow()
-
 
 
     private val _routePoints = MutableStateFlow<List<LatLng>>(emptyList())
@@ -74,6 +81,11 @@ class MapViewModel @Inject constructor(
     private val _rideState = MutableStateFlow(RideState.IDLE)
     val rideState: StateFlow<RideState> = _rideState.asStateFlow()
 
+    private val _driverProfile = MutableStateFlow<DriverProfile?>(null)
+    val driverProfile: StateFlow<DriverProfile?> = _driverProfile.asStateFlow()
+
+    private val _driverEtaMinutes = MutableStateFlow(0)
+    val driverEtaMinutes: StateFlow<Int> = _driverEtaMinutes.asStateFlow()
 
 
 
@@ -114,12 +126,6 @@ class MapViewModel @Inject constructor(
 
 
 
-    private val _selectedLocation = MutableStateFlow<LatLng?>(null)
-    val selectedLocation : StateFlow<LatLng?> = _selectedLocation.asStateFlow()
-
-    fun setSelectedLocation(location : LatLng){
-        _selectedLocation.value = location
-    }
 
 
     fun fetchRoute(
@@ -184,7 +190,7 @@ class MapViewModel @Inject constructor(
         if (total < car.minimumFare) total = car.minimumFare
 
         _price.value = total
-        savedStateHandle["ride_price"] = total
+        savedStateHandle[KEY_RIDE_PRICE] = total
     }
 
 
@@ -204,18 +210,31 @@ class MapViewModel @Inject constructor(
 
     fun startRideSimulation() {
         viewModelScope.launch {
+            _driverProfile.value = fakeDrivers.random()
+            _driverEtaMinutes.value = 6
+
             _rideState.value = RideState.REQUESTED
-            delay(2000)
-            _rideState.value = RideState.IN_PROGRESS
-            delay(5000)
+            delay(1500)
+
+            _rideState.value = RideState.ARRIVING
+            repeat(5) {
+                delay(1000)
+                _driverEtaMinutes.value = (_driverEtaMinutes.value - 1).coerceAtLeast(1)
+            }
+
+            _rideState.value = RideState.ARRIVED
+            delay(1200)
+
+            _rideState.value = RideState.TRIP_STARTED
+            delay(3000)
+
             _rideState.value = RideState.COMPLETED
         }
     }
 
     fun resetRide() {
         _rideState.value = RideState.IDLE
+        _driverEtaMinutes.value = 0
+        _driverProfile.value = null
     }
-
-
-
 }

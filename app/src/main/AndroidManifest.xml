@@ -22,7 +22,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD8-EAnPV7SOnkf1Rd2TRCWnsw58HJzYdE"/>
+            android:value="@string/maps_api_key"/>
 
 
         <activity
@@ -53,5 +53,6 @@
             tools:node="merge" />
 
     </application>
+
 
 </manifest>

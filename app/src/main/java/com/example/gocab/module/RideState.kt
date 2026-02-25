@@ -4,6 +4,8 @@ enum class RideState {
 
     IDLE,
     REQUESTED,
-    IN_PROGRESS,
+    ARRIVING,
+    ARRIVED,
+    TRIP_STARTED,
     COMPLETED
 }

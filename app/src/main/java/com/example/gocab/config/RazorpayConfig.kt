@@ -1,5 +1,7 @@
 package com.example.gocab.config
 
+import android.content.Context
+import com.example.gocab.R
 object RazorpayConfig{
-    const val KEY_ID = "rzp_test_SHxSZOezJkzcNs"
+    fun getKeyId(context: Context): String = context.getString(R.string.razorpay_key_id)
 }

@@ -48,7 +48,7 @@ class PaymentViewModel @Inject constructor() : ViewModel(){
             }
 
             val checkout = Checkout()
-            checkout.setKeyID(RazorpayConfig.KEY_ID)
+            checkout.setKeyID(RazorpayConfig.getKeyId(activity))
             checkout.open(activity,options)
 
 

@@ -5,18 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.gocab.module.AppApiKey
-import com.example.gocab.module.PaymentState
 import com.example.gocab.navgraph.AuthNavGraph
-import com.example.gocab.screens.GoCabMap
-import com.example.gocab.screens.SignupScreen
 import com.example.gocab.ui.theme.GoCabTheme
 import com.example.gocab.viewmodel.PaymentViewModel
 import com.google.android.libraries.places.api.Places
@@ -40,8 +29,9 @@ class MainActivity : ComponentActivity(), PaymentResultListener {
 
 
 
-        if (!Places.isInitialized()) {
-            Places.initialize(applicationContext, AppApiKey.KEY_ID)
+        val mapsKey = getString(com.example.gocab.R.string.maps_api_key)
+        if (!Places.isInitialized() && mapsKey.isNotBlank()) {
+            Places.initialize(applicationContext, mapsKey)
         }
 
         setContent {

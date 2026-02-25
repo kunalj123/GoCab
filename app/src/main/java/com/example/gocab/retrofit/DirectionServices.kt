@@ -10,7 +10,7 @@ interface DirectionServices {
 //    https://maps.googleapis.com/maps/api/directions/json
 //    ?destination=Montreal
 //    &origin=Toronto
-//    &key=AIzaSyD8-EAnPV7SOnkf1Rd2TRCWnsw58HJzYdE
+//    &key=<YOUR_MAPS_API_KEY>
 
     @GET("directions/json")
     suspend fun getDirection(

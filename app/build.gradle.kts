@@ -1,3 +1,6 @@
+import java.util.Properties
+
+
 
 
 plugins {
@@ -9,9 +12,21 @@ plugins {
     id("com.google.gms.google-services")
 
     id("com.google.dagger.hilt.android")
-    id("com.google.devtools.ksp") version "2.1.21-2.0.1"
+//    id("com.google.devtools.ksp") version "2.1.21-2.0.1"
+    id("com.google.devtools.ksp")
 
 }
+
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) {
+        file.inputStream().use { load(it) }
+    }
+}
+
+val mapsApiKey = localProperties.getProperty("MAPS_API_KEY", "AIzaSyA9zpnU0m8JrqLQUPg2_1-1szv76rNUC3c")
+val razorpayKeyId = localProperties.getProperty("RAZORPAY_KEY_ID", "rzp_test_SKFQN2rAFhAgRP")
+val googleWebClientId = localProperties.getProperty("GOOGLE_WEB_CLIENT_ID", "788462098118-e8c3m0aqcqb3mriuo9m48pq3cdkfobit.apps.googleusercontent.com")
 
 
 
@@ -27,6 +42,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
+        buildConfigField("String", "MAPS_API_KEY", "\"$mapsApiKey\"")
+        buildConfigField("String", "RAZORPAY_KEY_ID", "\"$razorpayKeyId\"")
     }
 
     buildTypes {
@@ -47,6 +66,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -63,6 +83,15 @@ dependencies {
     implementation(libs.androidx.animation)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.10.2")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.10.0")
+    implementation("androidx.credentials:credentials:1.3.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
+//    implementation(libs.kotlinx.coroutines.play.services)
+//    implementation(libs.play.services.auth)
+//    implementation(libs.androidx.lifecycle.runtime.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

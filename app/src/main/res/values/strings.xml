@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">GoCab</string>
+    <string name="google_web_client_id">788462098118-e8c3m0aqcqb3mriuo9m48pq3cdkfobit.apps.googleusercontent.com</string>
+    <string name="razorpay_key_id">rzp_test_SHxSZOezJkzcNs</string>
+    <string name="maps_api_key">AIzaSyA9zpnU0m8JrqLQUPg2_1-1szv76rNUC3c</string>
 </resources>

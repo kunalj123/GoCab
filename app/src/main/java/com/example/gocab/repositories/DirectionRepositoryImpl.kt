@@ -89,22 +89,17 @@ class DirectionRepositoryImpl @Inject constructor(
     ): RouteResult? {
 
 
-        val originStr = "${origin.latitude}, ${origin.longitude}"
+        val originStr = "${origin.latitude},${origin.longitude}"
 
         val destinationStr = "${destination.latitude},${destination.longitude}"
 
 
-        val myWaypoints = if (waypoints.size > 2) {
-
-            "optimize:true|" + waypoints.subList(1, waypoints.size - 1).joinToString("|") {
+        val myWaypoints = if (waypoints.isNotEmpty()) {
+            "optimize:true|" + waypoints.joinToString("|") {
                 "${it.latitude},${it.longitude}"
             }
-
-
-        }else{
-            waypoints.joinToString("|") {
-                "${it.latitude},${it.longitude}"
-            }
+        } else {
+            null
         }
 
 
